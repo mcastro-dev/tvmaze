@@ -1,0 +1,5 @@
+rootProject.name='TV Maze'
+include ':app'
+include ':domain'
+include ':infrastructure'
+include ':application'

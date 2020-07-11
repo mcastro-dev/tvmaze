@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_fields_vertical_margin">20dp</dimen>
+    <dimen name="text_fields_horizontal_margin">16dp</dimen>
+    <dimen name="text_size_headline_4">34sp</dimen>
+    <dimen name="text_size_headline_6">20sp</dimen>
+    <dimen name="text_size_body_1">16sp</dimen>
+
+</resources>

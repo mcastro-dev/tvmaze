@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TV Maze</string>
+    <string name="action_search">Search</string>
+
+    <string name="label_genres">Genres</string>
+    <string name="label_schedule">Schedule</string>
+    <string name="label_summary">Summary</string>
+    <string name="label_episodes">Episodes</string>
+
+</resources>
