@@ -19,7 +19,6 @@ import com.mcastro.tvmaze.infrastructure.tvshow.remote.TvMazeDataSourceImpl
 import com.squareup.picasso.Picasso
 
 class TvShowDetailsActivity : AppCompatActivity() {
-
     companion object {
         private const val KEY_TV_SHOW_PREVIEW = "tv_show_preview"
         fun intentFor(context: Context, tvShowPreview: TvShowPreview): Intent {
@@ -39,9 +38,13 @@ class TvShowDetailsActivity : AppCompatActivity() {
         )
     }
 
+    private val binding: ActivityTvShowDetailsBinding by lazy {
+        ActivityTvShowDetailsBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityTvShowDetailsBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -52,7 +55,21 @@ class TvShowDetailsActivity : AppCompatActivity() {
         Picasso.get().load(tvShowPreview.posterUrl).into(binding.imgPoster)
 
         // Get the data we still need
-        viewModel.getTvShow(tvShowPreview.id).observe(this, Observer {
+        observeViewModel(tvShowPreview.id)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun observeViewModel(tvShowId: Int) {
+        viewModel.getTvShow(tvShowId).observe(this, Observer {
             if (!it.hasData) {
                 ErrorMessageDisplayer.show(this, it.failure!!)
                 return@Observer
@@ -64,15 +81,5 @@ class TvShowDetailsActivity : AppCompatActivity() {
                 txtSummary.text = HtmlCompat.fromHtml(data.summary, HtmlCompat.FROM_HTML_MODE_COMPACT)
             }
         })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
