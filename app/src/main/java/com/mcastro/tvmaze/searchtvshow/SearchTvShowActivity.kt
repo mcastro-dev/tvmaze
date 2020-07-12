@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.R
-import com.mcastro.tvmaze.searchtvshow.viewmodel.SearchTvShowViewModelFactory
+import com.mcastro.tvmaze.searchtvshow.viewmodel.SearchViewModelFactory
 import com.mcastro.tvmaze.common.TvShowPreviewClickListener
 import com.mcastro.tvmaze.databinding.ActivitySearchTvShowBinding
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepositoryImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.local.RoomDbDataSourceImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.remote.TvMazeDataSourceImpl
-import com.mcastro.tvmaze.searchtvshow.viewmodel.SearchTvShowViewModel
+import com.mcastro.tvmaze.searchtvshow.viewmodel.SearchViewModel
 import com.mcastro.tvmaze.tvshowdetails.TvShowDetailsActivity
 
 class SearchTvShowActivity : AppCompatActivity(), TvShowPreviewClickListener {
@@ -32,9 +32,9 @@ class SearchTvShowActivity : AppCompatActivity(), TvShowPreviewClickListener {
         }
     }
 
-    private val viewModel: SearchTvShowViewModel by viewModels {
+    private val viewModel: SearchViewModel by viewModels {
         // TODO: Use a Dependency Injection lib
-        SearchTvShowViewModelFactory(
+        SearchViewModelFactory(
             TvShowsRepositoryImpl(
                 TvMazeDataSourceImpl.getInstance(),
                 RoomDbDataSourceImpl.getInstance(applicationContext)
@@ -43,7 +43,7 @@ class SearchTvShowActivity : AppCompatActivity(), TvShowPreviewClickListener {
     }
 
     private var binding: ActivitySearchTvShowBinding? = null
-    private val recyclerAdapter = SearchTvShowRecyclerAdapter(this)
+    private val recyclerAdapter = SearchRecyclerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

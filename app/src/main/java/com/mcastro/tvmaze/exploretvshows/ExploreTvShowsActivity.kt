@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mcastro.tvmaze.*
 import com.mcastro.tvmaze.exploretvshows.viewmodel.TvShowsPreviewsViewModel
-import com.mcastro.tvmaze.exploretvshows.viewmodel.TvShowsPreviewsViewModelFactory
+import com.mcastro.tvmaze.exploretvshows.viewmodel.ExploreViewModelFactory
 import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.common.TvShowPreviewClickListener
 import com.mcastro.tvmaze.databinding.ActivityMainBinding
@@ -27,7 +27,7 @@ class ExploreTvShowsActivity : AppCompatActivity(),
 
     private val viewModel: TvShowsPreviewsViewModel by viewModels {
         // TODO: Use a Dependency Injection lib
-        TvShowsPreviewsViewModelFactory(
+        ExploreViewModelFactory(
             TvShowsRepositoryImpl(
                 TvMazeDataSourceImpl.getInstance(),
                 RoomDbDataSourceImpl.getInstance(applicationContext)
@@ -37,7 +37,7 @@ class ExploreTvShowsActivity : AppCompatActivity(),
 
     private var binding: ActivityMainBinding? = null
     private val recyclerAdapter =
-        TvShowsPreviewRecyclerAdapter(this)
+        ExploreRecyclerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

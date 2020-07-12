@@ -8,7 +8,7 @@ import com.mcastro.tvmaze.infrastructure.DataOrFailure
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepository
 import kotlinx.coroutines.launch
 
-class SearchTvShowViewModel(
+class SearchViewModel(
     private val repository: TvShowsRepository
 ) : ViewModel() {
 

@@ -8,8 +8,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
-import com.mcastro.tvmaze.tvshowdetails.viewmodel.TvShowViewModel
-import com.mcastro.tvmaze.tvshowdetails.viewmodel.TvShowViewModelFactory
+import com.mcastro.tvmaze.tvshowdetails.viewmodel.DetailsViewModel
+import com.mcastro.tvmaze.tvshowdetails.viewmodel.DetailsViewModelFactory
 import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.databinding.ActivityTvShowDetailsBinding
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
@@ -29,9 +29,9 @@ class TvShowDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private val viewModel: TvShowViewModel by viewModels {
+    private val viewModel: DetailsViewModel by viewModels {
         // TODO: Use a Dependency Injection lib
-        TvShowViewModelFactory(
+        DetailsViewModelFactory(
             TvShowsRepositoryImpl(
                 TvMazeDataSourceImpl.getInstance(),
                 RoomDbDataSourceImpl.getInstance(applicationContext)
