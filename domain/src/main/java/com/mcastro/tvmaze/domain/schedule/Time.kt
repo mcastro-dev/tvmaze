@@ -19,6 +19,10 @@ class Time(value: String) {
     private val minute: Int
 
     init {
+        if (value.isBlank()) {
+            throw InvalidParameterException()
+        }
+
         val hour = extractHourFromValue(value)
         val minute = extractMinuteFromValue(value)
         if (hour < MIN_HOUR || hour > MAX_HOUR ||
@@ -34,7 +38,7 @@ class Time(value: String) {
     private fun extractMinuteFromValue(value: String) = value.substringAfter(":").toInt()
 
     private fun intToString(number: Int) = if (number < 10) {
-        "${number}0"
+        "0${number}"
     } else {
         number.toString()
     }

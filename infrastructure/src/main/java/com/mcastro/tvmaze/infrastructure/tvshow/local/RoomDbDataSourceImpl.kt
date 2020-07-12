@@ -22,7 +22,8 @@ class RoomDbDataSourceImpl private constructor(
         }
     }
 
-    override fun getPreviewsPaginating(page: Int, take: Int) = previewsDao.getAllPaginating(take, page * take)
+    override suspend fun getPreviewsPaginating(page: Int, take: Int)
+            = previewsDao.getAllPaginating(take, page * take)
 
     override suspend fun insertPreviews(previews: List<TvShowPreview>) {
         previewsDao.insert(LocalTvShowPreviewMapper.toLocalDataTransferObjects(previews))

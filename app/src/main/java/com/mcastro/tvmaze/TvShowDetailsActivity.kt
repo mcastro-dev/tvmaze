@@ -1,6 +1,5 @@
 package com.mcastro.tvmaze
 
-import android.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle

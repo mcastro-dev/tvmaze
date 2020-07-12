@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,17 +29,18 @@ class MainActivity : AppCompatActivity(), TvShowClickListener {
         )
     }
 
+    private var binding: ActivityMainBinding? = null
     private val recyclerAdapter = TvShowsPreviewRecyclerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setContentView(binding!!.root)
+        setSupportActionBar(binding!!.toolbar)
 
-        setupPreviewsRecyclerView(binding.listPreviews)
+        setupPreviewsRecyclerView(binding!!.listPreviews)
         observeViewModel()
     }
 
@@ -65,12 +67,9 @@ class MainActivity : AppCompatActivity(), TvShowClickListener {
     }
 
     private fun observeViewModel() {
-        viewModel.loading.observe(this, Observer {  isLoading ->
-            if (isLoading) {
-                // TODO: show loading indicator
-            } else {
-                // TODO: remove loading indicator
-            }
+        viewModel.initialLoading.observe(this, Observer { isLoading ->
+            binding?.listPreviews?.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+            binding?.initialLoadingIndicator?.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
 
         viewModel.tvShowsPreviews.observe(this, Observer {

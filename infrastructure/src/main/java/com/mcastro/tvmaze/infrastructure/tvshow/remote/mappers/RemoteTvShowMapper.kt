@@ -21,11 +21,17 @@ class RemoteTvShowMapper {
     )
 
     private fun mapSchedule(scheduleRDTO: ScheduleRDTO) : Schedule {
+        val time = if (scheduleRDTO.time.isNotBlank())
+            Time(scheduleRDTO.time)
+            else null
+
+        val schedule = if (scheduleRDTO.days.isNotEmpty())
+            scheduleRDTO.days.map { DayOfWeek.valueOf(it) }
+            else null
+
         return Schedule(
-            Time(scheduleRDTO.time),
-            scheduleRDTO.days.map {
-                DayOfWeek.valueOf(it)
-            }
+            time,
+            schedule
         )
     }
 

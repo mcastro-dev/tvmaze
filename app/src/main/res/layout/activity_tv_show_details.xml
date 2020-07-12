@@ -115,24 +115,6 @@
                         android:textSize="@dimen/text_size_body_1" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/episodes_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginVertical="@dimen/text_fields_vertical_margin"
-                    android:layout_marginHorizontal="@dimen/text_fields_horizontal_margin"
-                    app:layout_constraintTop_toBottomOf="@id/summary_section">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_episodes"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/text_size_body_1"/>
-                    <!--TODO: list episodes-->
-                </LinearLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
