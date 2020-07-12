@@ -2,6 +2,8 @@
 
 API: https://www.tvmaze.com/api
 
+DEBUG APK: ./distribution/app-debug.apk
+
 DONE:
  - List all series contained in the API paginating results. Also implemented local caching of these results in SQLite.
  - Allow users to search series by name.
