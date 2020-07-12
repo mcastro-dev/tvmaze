@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.R
-import com.mcastro.tvmaze.application.searchshow.SearchTvShowViewModel
-import com.mcastro.tvmaze.application.searchshow.SearchTvShowViewModelFactory
+import com.mcastro.tvmaze.searchtvshow.viewmodel.SearchTvShowViewModelFactory
 import com.mcastro.tvmaze.common.TvShowPreviewClickListener
 import com.mcastro.tvmaze.databinding.ActivitySearchTvShowBinding
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepositoryImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.local.RoomDbDataSourceImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.remote.TvMazeDataSourceImpl
+import com.mcastro.tvmaze.searchtvshow.viewmodel.SearchTvShowViewModel
 import com.mcastro.tvmaze.tvshowdetails.TvShowDetailsActivity
 
 class SearchTvShowActivity : AppCompatActivity(), TvShowPreviewClickListener {

@@ -1,9 +1,7 @@
-package com.mcastro.tvmaze.application.show
+package com.mcastro.tvmaze.tvshowdetails.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.mcastro.tvmaze.domain.tvshow.TvShow
-import com.mcastro.tvmaze.infrastructure.DataOrFailure
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepository
 
 class TvShowViewModel(

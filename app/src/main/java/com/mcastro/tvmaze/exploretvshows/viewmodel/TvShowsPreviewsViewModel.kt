@@ -1,4 +1,4 @@
-package com.mcastro.tvmaze.application.showspreviews
+package com.mcastro.tvmaze.exploretvshows.viewmodel
 
 import androidx.lifecycle.*
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview

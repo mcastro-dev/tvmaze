@@ -1,4 +1,4 @@
-package com.mcastro.tvmaze.application.searchshow
+package com.mcastro.tvmaze.searchtvshow.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

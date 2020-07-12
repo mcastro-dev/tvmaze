@@ -8,8 +8,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
-import com.mcastro.tvmaze.application.show.TvShowViewModel
-import com.mcastro.tvmaze.application.show.TvShowViewModelFactory
+import com.mcastro.tvmaze.tvshowdetails.viewmodel.TvShowViewModel
+import com.mcastro.tvmaze.tvshowdetails.viewmodel.TvShowViewModelFactory
 import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.databinding.ActivityTvShowDetailsBinding
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview

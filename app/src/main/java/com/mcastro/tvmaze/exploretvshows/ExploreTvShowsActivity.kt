@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mcastro.tvmaze.*
-import com.mcastro.tvmaze.application.showspreviews.TvShowsPreviewsViewModel
-import com.mcastro.tvmaze.application.showspreviews.TvShowsPreviewsViewModelFactory
+import com.mcastro.tvmaze.exploretvshows.viewmodel.TvShowsPreviewsViewModel
+import com.mcastro.tvmaze.exploretvshows.viewmodel.TvShowsPreviewsViewModelFactory
 import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.common.TvShowPreviewClickListener
 import com.mcastro.tvmaze.databinding.ActivityMainBinding

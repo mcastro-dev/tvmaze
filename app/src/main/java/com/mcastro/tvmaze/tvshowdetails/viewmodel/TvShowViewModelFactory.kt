@@ -1,15 +1,15 @@
-package com.mcastro.tvmaze.application.searchshow
+package com.mcastro.tvmaze.tvshowdetails.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepository
 
-class SearchTvShowViewModelFactory(
+class TvShowViewModelFactory(
     private val repository: TvShowsRepository
 ): ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = SearchTvShowViewModel(
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = TvShowViewModel(
         repository
     ) as T
 }
