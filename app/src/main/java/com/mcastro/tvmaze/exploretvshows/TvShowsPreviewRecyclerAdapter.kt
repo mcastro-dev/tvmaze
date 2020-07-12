@@ -1,4 +1,4 @@
-package com.mcastro.tvmaze
+package com.mcastro.tvmaze.exploretvshows
 
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +27,9 @@ class TvShowsPreviewRecyclerAdapter(
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,7 +42,7 @@ class TvShowsPreviewRecyclerAdapter(
         holder.binding.run {
             root.setOnClickListener(onItemClicked)
             txtName.text = item.name
-            Picasso.get().load(item.posterUrl).into(imgPoster);
+            Picasso.get().load(item.posterUrl).into(imgPoster)
         }
     }
 

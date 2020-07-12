@@ -24,28 +24,40 @@ class TvShowsRepositoryImpl(
         page: Int,
         take: Int
     ) = callbackFlow {
-        suspend fun offerLocalPreviews() {
-            val localPreviews = localDataSource
+
+        suspend fun getLocalPreviews(): List<TvShowPreview> {
+            return localDataSource
                 .getPreviewsPaginating(page, take)
                 .map { LocalTvShowPreviewMapper.toDomainModel(it) }
-
-            offer(DataOrFailure(localPreviews))
         }
 
-        offerLocalPreviews()
-
         try {
-            val remotePreviews = remoteDataSource.getPreviewsPaginating(page, take)
-            localDataSource.insertPreviews(remotePreviews)
-            offerLocalPreviews()
+            val localPreviews = getLocalPreviews()
+
+            // We have cached data
+            if (localPreviews.isNotEmpty()) {
+                offer(DataOrFailure(localPreviews))
+
+            } else {
+                // We do NOT have cached data
+
+                val remotePreviews = remoteDataSource.getPreviewsPaginating(page, take)
+                localDataSource.insertPreviews(remotePreviews)
+
+                val updatedLocalPreviews = getLocalPreviews()
+                offer(DataOrFailure(updatedLocalPreviews))
+            }
 
         } catch (e: UnknownHostException) {
             offer(DataOrFailure<List<TvShowPreview>>(
                 failure = RemoteTvShowPreviewsFetchException()
             ))
-        } // TODO: properly handle other exceptions
 
-        close()
+            // TODO: properly handle other exceptions
+
+        } finally {
+            close()
+        }
 
     }.flowOn(Dispatchers.IO)
 

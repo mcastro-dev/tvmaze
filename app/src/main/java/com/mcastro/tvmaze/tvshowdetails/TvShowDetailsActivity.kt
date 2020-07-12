@@ -1,4 +1,4 @@
-package com.mcastro.tvmaze
+package com.mcastro.tvmaze.tvshowdetails
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
+import com.mcastro.tvmaze.R
 import com.mcastro.tvmaze.application.show.TvShowViewModel
 import com.mcastro.tvmaze.application.show.TvShowViewModelFactory
 import com.mcastro.tvmaze.databinding.ActivityTvShowDetailsBinding

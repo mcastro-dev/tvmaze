@@ -1,4 +1,4 @@
-package com.mcastro.tvmaze
+package com.mcastro.tvmaze.exploretvshows
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,18 +6,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mcastro.tvmaze.*
 import com.mcastro.tvmaze.application.showspreviews.TvShowsPreviewsViewModel
 import com.mcastro.tvmaze.application.showspreviews.TvShowsPreviewsViewModelFactory
 import com.mcastro.tvmaze.databinding.ActivityMainBinding
+import com.mcastro.tvmaze.tvshowdetails.TvShowDetailsActivity
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepositoryImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.local.RoomDbDataSourceImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.remote.TvMazeDataSourceImpl
 
-class MainActivity : AppCompatActivity(), TvShowClickListener {
+class ExploreTvShowsActivity : AppCompatActivity(),
+    TvShowClickListener {
 
     private val viewModel: TvShowsPreviewsViewModel by viewModels {
         // TODO: Dependency Injection
@@ -30,7 +34,8 @@ class MainActivity : AppCompatActivity(), TvShowClickListener {
     }
 
     private var binding: ActivityMainBinding? = null
-    private val recyclerAdapter = TvShowsPreviewRecyclerAdapter(this)
+    private val recyclerAdapter =
+        TvShowsPreviewRecyclerAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,13 +62,34 @@ class MainActivity : AppCompatActivity(), TvShowClickListener {
     }
 
     override fun onTvShowClicked(tvShowPreview: TvShowPreview) {
-        val intent = TvShowDetailsActivity.intentFor(this, tvShowPreview)
+        val intent =
+            TvShowDetailsActivity.intentFor(
+                this,
+                tvShowPreview
+            )
         startActivity(intent)
     }
 
+    private fun setupNestedScrollViewForPagination(nestedScrollView: NestedScrollView) {
+        val listener = NestedScrollView.OnScrollChangeListener { view, _, scrollY, _, _ ->
+            if (scrollY == view.getChildAt(0).measuredHeight - view.measuredHeight) {
+                viewModel.nextPage()
+            }
+        }
+        nestedScrollView.setOnScrollChangeListener(listener)
+    }
+
     private fun setupPreviewsRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = recyclerAdapter
+
+        val listener = object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            override fun onLoadMore() {
+                viewModel.nextPage()
+            }
+        }
+        recyclerView.addOnScrollListener(listener)
     }
 
     private fun observeViewModel() {
