@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface TvShowsRepository {
     suspend fun getPreviewsPaginating(page: Int, take: Int) : Flow<DataOrFailure<List<TvShowPreview>>>
     suspend fun getTvShow(tvShowId: Int) : LiveData<DataOrFailure<TvShow>>
+    suspend fun searchTvShowByName(query: String) : DataOrFailure<List<TvShowPreview>>
 }

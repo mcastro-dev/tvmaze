@@ -6,25 +6,27 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mcastro.tvmaze.*
 import com.mcastro.tvmaze.application.showspreviews.TvShowsPreviewsViewModel
 import com.mcastro.tvmaze.application.showspreviews.TvShowsPreviewsViewModelFactory
+import com.mcastro.tvmaze.common.ErrorMessageDisplayer
+import com.mcastro.tvmaze.common.TvShowPreviewClickListener
 import com.mcastro.tvmaze.databinding.ActivityMainBinding
 import com.mcastro.tvmaze.tvshowdetails.TvShowDetailsActivity
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepositoryImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.local.RoomDbDataSourceImpl
 import com.mcastro.tvmaze.infrastructure.tvshow.remote.TvMazeDataSourceImpl
+import com.mcastro.tvmaze.searchtvshow.SearchTvShowActivity
 
 class ExploreTvShowsActivity : AppCompatActivity(),
-    TvShowClickListener {
+    TvShowPreviewClickListener {
 
     private val viewModel: TvShowsPreviewsViewModel by viewModels {
-        // TODO: Dependency Injection
+        // TODO: Use a Dependency Injection lib
         TvShowsPreviewsViewModelFactory(
             TvShowsRepositoryImpl(
                 TvMazeDataSourceImpl.getInstance(),
@@ -56,27 +58,17 @@ class ExploreTvShowsActivity : AppCompatActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_search -> true
+            R.id.action_navigate_to_search -> {
+                startActivity(SearchTvShowActivity.intentFor(this))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onTvShowClicked(tvShowPreview: TvShowPreview) {
-        val intent =
-            TvShowDetailsActivity.intentFor(
-                this,
-                tvShowPreview
-            )
+        val intent = TvShowDetailsActivity.intentFor(this, tvShowPreview)
         startActivity(intent)
-    }
-
-    private fun setupNestedScrollViewForPagination(nestedScrollView: NestedScrollView) {
-        val listener = NestedScrollView.OnScrollChangeListener { view, _, scrollY, _, _ ->
-            if (scrollY == view.getChildAt(0).measuredHeight - view.measuredHeight) {
-                viewModel.nextPage()
-            }
-        }
-        nestedScrollView.setOnScrollChangeListener(listener)
     }
 
     private fun setupPreviewsRecyclerView(recyclerView: RecyclerView) {
@@ -100,7 +92,7 @@ class ExploreTvShowsActivity : AppCompatActivity(),
 
         viewModel.tvShowsPreviews.observe(this, Observer {
             if (!it.hasData) {
-                // TODO: show friendly error message to user, according to exception
+                ErrorMessageDisplayer.show(this, it.failure!!)
                 return@Observer
             }
             recyclerAdapter.addData(it.data!!)

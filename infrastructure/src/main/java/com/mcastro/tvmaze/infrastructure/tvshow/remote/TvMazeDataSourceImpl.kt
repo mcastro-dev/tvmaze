@@ -4,6 +4,7 @@ import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.mcastro.tvmaze.infrastructure.RetrofitHttpClient
 import com.mcastro.tvmaze.infrastructure.tvshow.remote.mappers.RemoteTvShowMapper
 import com.mcastro.tvmaze.infrastructure.tvshow.remote.mappers.RemoteTvShowPreviewMapper
+import com.mcastro.tvmaze.infrastructure.tvshow.remote.mappers.RemoteTvShowSearchResultMapper
 
 // TvMaze doesn't have a parameter for limiting results.
 private const val ITEMS_COUNT_PER_PAGE = 250
@@ -38,4 +39,7 @@ class TvMazeDataSourceImpl private constructor(
 
     override suspend fun getTvShow(tvShowId: Int)
             = RemoteTvShowMapper().toDomainModel(tvMazeShowsDao.getTvShow(tvShowId))
+
+    override suspend fun searchTvShowByName(query: String)
+            = RemoteTvShowSearchResultMapper().toDomainModels(tvMazeShowsDao.searchTvShowByName(query))
 }

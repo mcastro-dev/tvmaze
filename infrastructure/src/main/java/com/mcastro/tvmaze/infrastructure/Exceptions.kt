@@ -1,5 +1,5 @@
 package com.mcastro.tvmaze.infrastructure
 
-class RemoteTvShowPreviewsFetchException : Exception()
+class TvShowUnexpectedException : Exception()
 
-class RemoteTvShowFetchException : Exception()
+class UnavailableCommunicationWithHost : Exception()

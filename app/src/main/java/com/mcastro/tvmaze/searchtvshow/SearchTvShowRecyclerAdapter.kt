@@ -1,32 +1,30 @@
-package com.mcastro.tvmaze.exploretvshows
+package com.mcastro.tvmaze.searchtvshow
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mcastro.tvmaze.common.TvShowPreviewClickListener
-import com.mcastro.tvmaze.databinding.ItemTvShowPreviewBinding
+import com.mcastro.tvmaze.databinding.ItemSearchTvShowBinding
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.squareup.picasso.Picasso
 
-class TvShowsPreviewRecyclerAdapter(
+class SearchTvShowRecyclerAdapter(
     private val clickListener: TvShowPreviewClickListener
-) : RecyclerView.Adapter<TvShowsPreviewRecyclerAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ItemTvShowPreviewBinding) : RecyclerView.ViewHolder(binding.root)
+) : RecyclerView.Adapter<SearchTvShowRecyclerAdapter.ViewHolder>() {
+    class ViewHolder(val binding: ItemSearchTvShowBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val previews = mutableListOf<TvShowPreview>()
 
     override fun getItemCount() = previews.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemTvShowPreviewBinding.inflate(
+        val binding = ItemSearchTvShowBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ViewHolder(
-            binding
-        )
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -43,13 +41,9 @@ class TvShowsPreviewRecyclerAdapter(
         }
     }
 
-    fun addData(previews: List<TvShowPreview>) {
-        val startPosition = this.previews.size
-        this.previews.addAll(previews)
-        notifyItemRangeInserted(startPosition, previews.size)
-    }
-
-    fun resetData() {
+    fun setData(previews: List<TvShowPreview>) {
         this.previews.clear()
+        this.previews.addAll(previews)
+        notifyDataSetChanged()
     }
 }

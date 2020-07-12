@@ -1,0 +1,4 @@
+<resources>
+    <string name="generic_error">Error! Something went wrong and we don\'t know what it is. Please report.</string>
+    <string name="unavailable_communication_error">Error! Verify your internet connection.</string>
+</resources>

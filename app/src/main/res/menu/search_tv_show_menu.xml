@@ -1,10 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mcastro.tvmaze.exploretvshows.ExploreTvShowsActivity">
+    tools:context="com.mcastro.tvmaze.searchtvshow.SearchTvShowActivity">
     <item
-        android:id="@+id/action_navigate_to_search"
+        android:id="@+id/action_search"
         android:title="@string/action_search"
         android:icon="@drawable/ic_search_white_24dp"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>

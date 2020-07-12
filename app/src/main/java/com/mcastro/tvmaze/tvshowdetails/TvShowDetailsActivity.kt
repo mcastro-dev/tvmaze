@@ -8,9 +8,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
-import com.mcastro.tvmaze.R
 import com.mcastro.tvmaze.application.show.TvShowViewModel
 import com.mcastro.tvmaze.application.show.TvShowViewModelFactory
+import com.mcastro.tvmaze.common.ErrorMessageDisplayer
 import com.mcastro.tvmaze.databinding.ActivityTvShowDetailsBinding
 import com.mcastro.tvmaze.domain.tvshow.TvShowPreview
 import com.mcastro.tvmaze.infrastructure.tvshow.TvShowsRepositoryImpl
@@ -30,7 +30,7 @@ class TvShowDetailsActivity : AppCompatActivity() {
     }
 
     private val viewModel: TvShowViewModel by viewModels {
-        // TODO: Dependency Injection
+        // TODO: Use a Dependency Injection lib
         TvShowViewModelFactory(
             TvShowsRepositoryImpl(
                 TvMazeDataSourceImpl.getInstance(),
@@ -54,7 +54,7 @@ class TvShowDetailsActivity : AppCompatActivity() {
         // Get the data we still need
         viewModel.getTvShow(tvShowPreview.id).observe(this, Observer {
             if (!it.hasData) {
-                // TODO: show friendly error message to user, according to exception
+                ErrorMessageDisplayer.show(this, it.failure!!)
                 return@Observer
             }
             val data = it.data!!
@@ -68,7 +68,7 @@ class TvShowDetailsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.home -> {
+            android.R.id.home -> {
                 onBackPressed()
                 true
             }
